@@ -1,16 +1,16 @@
-import { useContext, useState } from "react";
-import { CartContext } from "../../context/CartContext";
-import { getDocs, collection, query, where } from 'firebase/firestore';
+import { useContext, useState, useEffect } from "react";
+import CartContext from "../../context/CartContext";
+import { collection, writeBatch } from 'firebase/firestore';
 import { db } from "../../service/firebase/firebaseConfig";
 
 import CheckoutForm from "../CheckoutForm/CheckoutForm";
-import { Timestamp, addDoc, documentId, writeBatch } from "firebase/firestore"; // Removed 'collection' import
+import { Timestamp, addDoc, documentId, getDocs, query, where} from "firebase/firestore"; // Removed 'collection' import
 
 const Checkout = () => {
     const [loading, setLoading] = useState(false);
     const [orderId, setOrderId] = useState('');
 
-    const { cart, total, clearCart } = useContext(CartContext);
+    const { cart, totalPrice, clearCart } = useContext(CartContext);
 
     const createOrder = async ({ name, phone, email }) => {
         setLoading(true);
@@ -21,7 +21,7 @@ const Checkout = () => {
                     name, phone, email
                 },
                 items: cart,
-                total: total,
+                total: totalPrice,
                 date: Timestamp.fromDate(new Date())
             };
 
@@ -31,10 +31,9 @@ const Checkout = () => {
 
             const ids = cart.map(prod => prod.id);
 
-            const productsCollection = collection(db, 'products'); // Renamed 'productsRef' to 'productsCollection'
+            const productsCollection = collection(db, 'products');
 
-            const productsAddedFromFirestore = await getDocs(query(productsCollection, where(documentId(), 'in', ids))); // Fixed 'id' to 'ids'
-
+            const productsAddedFromFirestore = await getDocs(query(productsCollection, where(documentId(), 'in', ids))); 
             const { docs } = productsAddedFromFirestore;
 
             docs.forEach(doc => {
@@ -47,7 +46,7 @@ const Checkout = () => {
                 if (stockDb >= prodQuantity) {
                     batch.update(doc.ref, { stock: stockDb - prodQuantity });
                 } else {
-                    outOfStock.push({ id: doc.id, ...dataDoc }); // Fixed the array format
+                    outOfStock.push({ id: doc.id, ...dataDoc });
                 }
             });
 
@@ -69,19 +68,21 @@ const Checkout = () => {
             setLoading(false);
         }
     };
-
-    if (loading) {
-        return <h2>Generando pedido...</h2>;
-    }
-
-    if (orderId) {
-        return <h2>El id de su pedido es: {orderId}</h2>;
-    }
+    useEffect(() => {
+        if (loading) {
+            return <h2>Generando pedido...</h2>;
+        } 
+        if (orderId) {
+            return <h2>El id de su pedido es: {orderId}</h2>;
+        }
+        
+        return null;
+    }, [loading, orderId]);
 
     return (
         <div>
             <h1>Checkout</h1>
-            <CheckoutForm onConfirm={createOrder} />
+            {loading ? <h2>Generando pedido...</h2> : orderId ? <h2>El id de su pedido es: {orderId}</h2> : <CheckoutForm onConfirm={createOrder} />}
         </div>
     );
 }

@@ -17,5 +17,4 @@ return(
         <CartWidget/>
     </nav>
 )}
-
 export default NavBar;

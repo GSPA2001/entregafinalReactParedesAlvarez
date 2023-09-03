@@ -23,7 +23,7 @@ const products = [
         price:800,
         category: 'entradas',
         image:"https://elsabornorteno.000webhostapp.com/img/entradas/tamales.png",
-        stock:5,
+        stock:10,
         descripction: 'Masa de maiz rellena'
     },
     {

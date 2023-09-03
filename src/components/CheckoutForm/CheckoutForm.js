@@ -1,16 +1,21 @@
 import './CheckoutForm.css';
 import { useState } from 'react';
+import { useContext } from 'react';
+import CheckoutDetail from "../CheckoutDetail/CheckoutDetail";
+import CartContext from "../../context/CartContext";
 
 const CheckoutForm = ({ onConfirm }) => {
     const [name, setName] = useState('');
     const [phone, setPhone] = useState('');
     const [email, setEmail] = useState('');
 
+    const { clearCart, cart } = useContext(CartContext);
+
     const handleConfirm = (event) => {
         event.preventDefault();
 
         const userData = {
-            name,
+            name, 
             phone,
             email
         };
@@ -34,8 +39,14 @@ const CheckoutForm = ({ onConfirm }) => {
                 </label>
                 <div className='Label'>
                     <button type='submit' className='Button'>
-                        Crear Orden
+                        Crear pedido
                     </button>
+                    <button type='button' onClick={() => clearCart()} className="Option">
+                        Cancelar pedido
+                    </button>
+                </div>
+                <div>
+                <CheckoutDetail cart={cart} />
                 </div>
             </form>
         </div>

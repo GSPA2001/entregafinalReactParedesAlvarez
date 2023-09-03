@@ -1,11 +1,10 @@
 .CartWidget {
     display: flex;
     align-items: center;
-    gap: 5px;
-}
-.CartCount {
+    gap: 2px;
+    color: black;
+    text-decoration: none;
     font-weight: bold;
-}
-img{
+}img{
     max-width:15%;
 }

@@ -3,3 +3,10 @@
   flex-wrap: wrap;
   justify-content: center;
 }
+@media (min-width: 840px) {
+  .ListGroup {
+    margin-top: 50px;
+    display: flex;
+    flex-wrap:nowrap;
+  }
+}
