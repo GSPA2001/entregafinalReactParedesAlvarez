@@ -1,0 +1,27 @@
+.CardItem {
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  padding: 10px;
+  margin: 10px;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+}
+.ItemHeader {
+  font-size: 1.2rem;
+  margin-bottom: 5px;
+}
+.ItemImg {
+  max-width: 100%;
+  height: auto;
+  margin-bottom: 10px;
+}
+.Info {
+  font-size: 0.9rem;
+  margin: 5px 0;
+}
+.ItemFooter {
+  margin-top: 10px;
+  display: flex;
+  justify-content: flex-end;
+}

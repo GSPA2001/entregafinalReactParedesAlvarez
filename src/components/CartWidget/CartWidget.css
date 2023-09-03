@@ -1,0 +1,11 @@
+.CartWidget {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+.CartCount {
+    font-weight: bold;
+}
+img{
+    max-width:15%;
+}
