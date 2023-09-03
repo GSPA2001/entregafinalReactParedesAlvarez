@@ -45,10 +45,10 @@ const CheckoutForm = ({ onConfirm }) => {
                         Cancelar pedido
                     </button>
                 </div>
-                <div>
-                <CheckoutDetail cart={cart} />
-                </div>
             </form>
+            <div>
+                <CheckoutDetail cart={cart} />
+            </div>
         </div>
     );
 };

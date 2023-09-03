@@ -2,9 +2,9 @@ import { useContext, useState, useEffect } from "react";
 import CartContext from "../../context/CartContext";
 import { collection, writeBatch } from 'firebase/firestore';
 import { db } from "../../service/firebase/firebaseConfig";
-
+import Swal from "sweetalert2";
 import CheckoutForm from "../CheckoutForm/CheckoutForm";
-import { Timestamp, addDoc, documentId, getDocs, query, where} from "firebase/firestore"; // Removed 'collection' import
+import { Timestamp, addDoc, documentId, getDocs, query, where} from "firebase/firestore"; 
 
 const Checkout = () => {
     const [loading, setLoading] = useState(false);
@@ -21,7 +21,7 @@ const Checkout = () => {
                     name, phone, email
                 },
                 items: cart,
-                total: totalPrice,
+                total: typeof totalPrice === 'number' ? totalPrice : 0,
                 date: Timestamp.fromDate(new Date())
             };
 
@@ -68,21 +68,34 @@ const Checkout = () => {
             setLoading(false);
         }
     };
+    
     useEffect(() => {
-        if (loading) {
-            return <h2>Generando pedido...</h2>;
-        } 
-        if (orderId) {
-            return <h2>El id de su pedido es: {orderId}</h2>;
+        if (!loading && orderId) {
+            console.log('Order ID:', orderId);
+            Swal.fire({
+                background:'rgba(177, 255, 164, 0.819)',
+                color:'#f08ff',
+                title: "Excelente",
+                text: `El id de su pedido es : ${orderId}`,
+                showConfirmButton: false,
+                timer: 1600
+            });
+        } else if (loading) {
+            Swal.fire({
+                background:'rgba(255, 190, 190, 0.757)',
+                color:'#f08ff',
+                title: "Generando su pedido..",
+                text: "Espere mientras se genera su ID...",
+                showConfirmButton: false,
+                timer: 1600
+            });
         }
-        
-        return null;
     }, [loading, orderId]);
 
     return (
         <div>
             <h1>Checkout</h1>
-            {loading ? <h2>Generando pedido...</h2> : orderId ? <h2>El id de su pedido es: {orderId}</h2> : <CheckoutForm onConfirm={createOrder} />}
+            <CheckoutForm onConfirm={createOrder} />
         </div>
     );
 }
