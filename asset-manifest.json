@@ -1,0 +1,14 @@
+{
+  "files": {
+    "main.css": "/GSPA2001/entregafinalReactParedesAlvarez/static/css/main.c9d97b59.css",
+    "main.js": "/GSPA2001/entregafinalReactParedesAlvarez/static/js/main.d956af4a.js",
+    "static/media/cart.svg": "/GSPA2001/entregafinalReactParedesAlvarez/static/media/cart.806c7c50f0be07a57aadea8ed4a68e41.svg",
+    "index.html": "/GSPA2001/entregafinalReactParedesAlvarez/index.html",
+    "main.c9d97b59.css.map": "/GSPA2001/entregafinalReactParedesAlvarez/static/css/main.c9d97b59.css.map",
+    "main.d956af4a.js.map": "/GSPA2001/entregafinalReactParedesAlvarez/static/js/main.d956af4a.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.c9d97b59.css",
+    "static/js/main.d956af4a.js"
+  ]
+}
