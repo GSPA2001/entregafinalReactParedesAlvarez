@@ -4,7 +4,7 @@ import CartContext from "../../context/CartContext";
 import './CheckoutDetail.css';
 
 const CheckoutDetail = () => {
-    const { cart, totalPrice } = useContext(CartContext);
+    const { cart, totalPrice, removeItem } = useContext(CartContext);
 
     return (
         <div className='CheckoutDetail'>
@@ -12,10 +12,12 @@ const CheckoutDetail = () => {
             {cart.map((product, index) => (
                 <CartItem
                     key={index}
+                    id={product.id}
                     image={product.image}
                     name={product.name}
                     price={product.price}
                     quantity={product.quantity}
+                    removeItem={removeItem}
                 />
             ))}
             <p id="total">Total:  ${parseFloat(totalPrice()).toFixed()}</p>
